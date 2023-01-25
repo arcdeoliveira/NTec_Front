@@ -1,0 +1,24 @@
+<h4 class="mb-3">Organograma Empresarial NTec</h4>
+<app-mensagem-processamento [mensagem]="mensagemDeAguarde" *ngIf="mostrarMensagem"></app-mensagem-processamento>
+
+
+<angular-org-chart [nodeTemplate]="nodeTemplate" [data]="tree" #exampleChart="orgChart">
+
+     <!-- OPTIONAL: zoom button with an ugly png -->
+     <button zoom-button class="zoom-button" (click)="exampleChart.toggleZoom()">
+        <img src="assets/zoom-in-out.png" width="100%" alt="ZoomInOut">
+    </button>
+
+</angular-org-chart>
+
+
+<!-- Node Template -->
+<ng-template #nodeTemplate let-node>
+    <div class="chart-node">
+        <img [src]="node?.image" alt="Sem foto">
+        <div class="name">{{node?.name}}</div>
+        <div class="description col-12">{{node?.description}} </div>
+        <!-- An ugly button to fold/unfold -->
+        <div *ngIf="node.children.length" (click)="node.hideChildren = !node.hideChildren" class="tree-fold-btn">{{node.hideChildren ? '+' : '-'}}</div>
+    </div>
+</ng-template>

@@ -1,0 +1,23 @@
+<h4>Principal</h4>
+
+<section>
+    <article>
+        Seja bem vindo ao sistema da NTec. Nele você podera gerenciar os colaboradores, cargos e setores.
+        O gerenciamento dessas entidades pode ser feito por qualquer um mas as alterações ou exclusão serão 
+        informado no sistema pelo usuário que fez a ação. Por esse motivo peço que informe o nome e o último nome para
+        acessar ao sistema.
+    </article>
+
+    <div class="d-flex justify-content-center mt-5" *ngIf="jaCadastrado">
+        <article class="row border border-2 border-dark w-50 py-2">
+            <div class="col-md-8">
+                <label for="nomeUsuario" class="form-label fw-bold">Informe seu nome e último sobrenome:</label>
+                <input type="text" class="form-control" [(ngModel)]="nomeUsuario" name="nomeUsuario" placeholder="Obrigatório">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label invisible">Botão label</label>
+                    <button (click)="registrarIdentificacao()" class="btn btn-primary ms-3">Indentifique-se</button>
+                </div>
+        </article>
+    </div>    
+</section>

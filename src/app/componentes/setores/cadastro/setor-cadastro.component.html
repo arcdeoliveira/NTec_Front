@@ -1,0 +1,18 @@
+<h4>Cadastro de Setor</h4>
+
+<section>
+    <div class="row g-3 mt-3">
+        <div class="col-sm-12 col-md-4">
+          <label for="nome" class="form-label">Nome</label>
+          <input class="form-control" name="nome" [(ngModel)]="setorNome" placeholder="Obrigatório">
+        </div>       
+
+        <div class="col-auto d-flex align-items-end">
+            <button type="button" class="btn btn-primary" (click)="salvarSetor()">Salvar</button>
+        </div>    
+        
+        <div class="col-auto d-flex align-items-end">
+            <a role="button" class="btn btn-secondary" routerLink="/setores">Voltar</a>
+        </div>    
+    </div>
+</section>

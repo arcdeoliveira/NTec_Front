@@ -1,0 +1,74 @@
+<h4>Cargo</h4>
+
+<section>
+    <article>
+        Página principal de cargo, nessa página  você pode buscar cargos com filtro pelo nome ou não, cadastrar, editar e deletar cargo.
+        Sistema não permite deletar cargo, caso esteja cadastrado em algum colaborador.
+    </article>
+
+    <div class="row g-3 mt-3">
+        <div class="col-sm-12 col-md-4">
+          <label for="nome" class="form-label">Nome</label>
+          <input class="form-control" name="nome" [(ngModel)]="filtro.nome">
+        </div>
+
+        <div class="col-sm-12 col-md-auto">
+            <label for="quantidade" class="form-label">Quantidade</label>
+            <select class="form-select" name="quantidade" [(ngModel)]="filtro.quantidadePagina">
+                <option *ngFor="let quantidade of quantidades" [ngValue]="quantidade">{{quantidade}}</option>
+            </select>
+          </div>
+
+        <div class="col-auto d-flex align-items-end">
+            <button type="button" class="btn btn-primary" (click)="getCargos()">Buscar</button>
+          </div>   
+          
+          <app-mensagem-processamento [mensagem]="mensagemDeAguarde" *ngIf="mostrarMensagem"></app-mensagem-processamento>
+    </div>
+</section>
+
+<section class="mt-5">
+    <aside class="col-12 overflow-auto">
+        <a class="btn btn-primary" routerLink="/cargo/cadastro/novo" role="button">Novo cargo</a>
+    </aside>
+   
+    <table class="table table-striped table-bordered table-hover caption-top">
+        <caption class="fw-bold">{{caption}}</caption>
+        <thead class="text-center bg-secondary text-white">
+            <th>Nome</th>
+            <th>Data última atualização</th>
+            <th>Qtd colaboradores no cargo</th>
+            <th>Ações</th>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let cargo of cargos">
+                <td>{{cargo.nome}}</td>
+                <td>{{cargo.data}}</td>
+                <td>{{cargo.quantidadeColaboradores}}</td>
+                <td>                
+                     <a class="btn btn-primary me-1" routerLink="/cargo/{{cargo.id}}" role="button">editar</a>
+                    <button class="btn btn-danger" (click)="prepararExclusao(cargo.id, cargo.nome)" data-bs-toggle="modal" 
+                    data-bs-target="#exclusaoModal">excluir</button>                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="modal" id="exclusaoModal" tabindex="-1" aria-labelledby="exclusaoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Exclusão de cargo</h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{textoParaExclusao}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" (click)="exclusaoCargo()">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>

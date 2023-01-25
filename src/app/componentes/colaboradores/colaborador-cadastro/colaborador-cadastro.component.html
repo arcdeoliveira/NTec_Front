@@ -1,0 +1,64 @@
+<h4>Cadastro de Colaborador</h4>
+
+<section>
+    <div class="row g-3 mt-3">
+        <div class="col-sm-12 col-md-4">
+          <label for="nome" class="form-label">Nome</label>
+          <input class="form-control" name="nome" [(ngModel)]="colaborador.nome" placeholder="Obrigatório">
+        </div> 
+        
+        <div class="col-sm-12 col-md-4">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+        <input class="form-control" name="sobrenome" [(ngModel)]="colaborador.sobreNome" placeholder="Obrigatório">
+        </div> 
+
+        <div class="col-sm-12 col-md-4">
+            <label for="cpf" class="form-label">Cpf</label>
+            <input type="number" class="form-control" name="cpf" maxlength="11" min="0" [(ngModel)]="colaborador.cpf" placeholder="Obrigatório">
+        </div> 
+
+        <div class="col-sm-12 col-md-4">
+            <label for="cargoId" class="form-label">Cargo</label>
+            <select class="form-select" name="cargoId" [(ngModel)]="colaborador.cargoId">
+              <option [ngValue]="undefined">Selecione uma opção...</option>
+              <option *ngFor="let cargo of cargos" [ngValue]="cargo.id">{{cargo.nome}}</option>
+            </select>
+          </div>
+  
+          <div class="col-sm-12 col-md-4">
+            <label for="setor" class="form-label">Setor</label>
+            <select class="form-select" name="setor" [(ngModel)]="colaborador.setorId">
+              <option [ngValue]="undefined">Selecione uma opção...</option>
+              <option *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.nome}}</option>
+            </select>
+          </div>   
+
+          <div class="col-sm-12 col-md-4">
+            <label for="cargoId" class="form-label">Chefe</label>
+            <select class="form-select" name="cargoId" [(ngModel)]="colaborador.chefeId">
+              <option [ngValue]="undefined">Selecione uma opção...</option>
+              <option *ngFor="let colaborador of colaboradores" [ngValue]="colaborador.id">{{colaborador.nome}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-12 col-md-3">
+            <label for="nome" class="form-label">Aniversário</label>
+            <input type="date" class="form-control" name="nome" [(ngModel)]="colaborador.aniversario">
+        </div> 
+
+        <div class="col-sm-12 col-md-3">
+            <label for="genero" class="form-label">Gênero</label>
+            <select class="form-select" name="genero" [(ngModel)]="colaborador.genero">
+                <option *ngFor="let genero of generos" [ngValue]="genero.id">{{genero.nome}}</option>
+            </select>
+        </div>          
+
+        <div class="col-auto d-flex align-items-end">
+            <button type="button" class="btn btn-primary" (click)="cadastrarColaborador()">Salvar</button>
+        </div>    
+        
+        <div class="col-auto d-flex align-items-end">
+            <a role="button" class="btn btn-secondary" routerLink="/colaboradores">Voltar</a>
+        </div>    
+    </div>
+</section>

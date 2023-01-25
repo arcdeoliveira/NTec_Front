@@ -1,0 +1,120 @@
+<h4>Colaborador</h4>
+
+<section>
+    <article>
+        Página principal de colaborador, nessa página  você pode buscar colaboradores com filtro pelo nome ou não, cadastrar, editar e deletar 
+        colaborador.
+        Sistema não permite deletar colaborador, caso ele seja chefe.
+    </article>
+
+    <div class="row g-3 mt-3">
+        <div class="col-sm-12 col-md-4">
+          <label for="nome" class="form-label">Nome</label>
+          <input class="form-control" name="nome" [(ngModel)]="filtro.nome">
+        </div>
+
+        <div class="col-sm-12 col-md-3">
+          <label for="nome" class="form-label">Cpf</label>
+          <input type="number" class="form-control" name="nome" maxlength="11" min="0" [(ngModel)]="filtro.cpf">
+        </div>        
+
+        <div class="col-sm-12 col-md-3">
+          <label for="genero" class="form-label">Gênero</label>
+          <select class="form-select" name="genero" [(ngModel)]="filtro.genero">
+            <option [ngValue]="null">Selecione uma opção...</option>
+            <option *ngFor="let genero of generos" [ngValue]="genero.id">{{genero.nome}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-12 col-md-2">
+          <label for="quantidade" class="form-label">Quantidade</label>
+          <select class="form-select" name="quantidade" [(ngModel)]="filtro.quantidadePagina">
+              <option *ngFor="let quantidade of quantidades" [ngValue]="quantidade">{{quantidade}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <label for="escolha" class="form-label">Chefe</label>
+          <select class="form-select" name="escolha" [(ngModel)]="filtro.chefe">
+            <option [ngValue]="null">Selecione uma opção...</option>
+            <option *ngFor="let escolha of escolhas" [ngValue]="escolha.id">{{escolha.nome}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-12 col-md-3">
+          <label for="cargoId" class="form-label">Cargo</label>
+          <select class="form-select" name="cargoId" [(ngModel)]="filtro.cargoId">
+            <option [ngValue]="null">Selecione uma opção...</option>
+            <option *ngFor="let cargo of cargos" [ngValue]="cargo.id">{{cargo.nome}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-12 col-md-3">
+          <label for="setor" class="form-label">Setor</label>
+          <select class="form-select" name="setor" [(ngModel)]="filtro.setorId">
+            <option [ngValue]="null">Selecione uma opção...</option>
+            <option *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.nome}}</option>
+          </select>
+        </div>   
+
+        <div class="col-auto d-flex align-items-end">
+            <button type="button" class="btn btn-primary" (click)="getColaboradores()">Buscar</button>
+        </div>              
+
+        <app-mensagem-processamento [mensagem]="mensagemDeAguarde" *ngIf="mostrarMensagem"></app-mensagem-processamento>
+    </div>
+</section>
+
+<section class="mt-5">
+    <aside class="col-12 overflow-auto">
+        <a class="btn btn-primary" routerLink="/colaborador/cadastro/novo" role="button">Novo Colaborador</a>
+    </aside>
+   
+    <table class="table table-striped table-bordered table-hover caption-top">
+        <caption class="fw-bold">{{caption}}</caption>
+        <thead class="text-center bg-secondary text-white">
+            <th>Nome</th>
+            <th>Cpf</th>
+            <th>Gênero</th>
+            <th>Data atualização</th>
+            <th>Cargo</th>
+            <th>Setor</th>
+            <th>Chefe</th>
+            <th>Ações</th>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let colaborador of colaboradores">
+                <td>{{colaborador.nomeCompleto}}</td>
+                <td>{{colaborador.cpf}}</td>
+                <td>{{colaborador.genero}}</td>
+                <td>{{colaborador.data}}</td>
+                <td>{{colaborador.cargoNome}}</td>
+                <td>{{colaborador.setorNome}}</td>
+                <td>{{colaborador.posicaoChefe}}</td>
+                <td>                
+                     <a class="btn btn-primary me-1" routerLink="/colaborador/{{colaborador.id}}" role="button">editar</a>
+                    <button class="btn btn-danger" (click)="prepararExclusao(colaborador.id, colaborador.nomeCompleto)" data-bs-toggle="modal" 
+                    data-bs-target="#exclusaoModal">excluir</button>                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="modal" id="exclusaoModal" tabindex="-1" aria-labelledby="exclusaoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Exclusão de colaborador</h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{textoParaExclusao}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" (click)="exclusaoColaborador()">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
